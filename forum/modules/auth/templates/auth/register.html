@@ -1,7 +1,21 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/auth.html" %}
 
 {% block content %}
 
-Register
+<div class="container">
+    <div class="col-6 mx-auto">
+        <h2 class="text-center py-4">Welcome, you can sign up.</h2>
+
+        <form action="{{ url_for('auth.register') }}" method="POST">
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name(class="form-control")}}
+            </div>
+        </form>
+        
+        
+    </div>
+</div>
+
 
 {% endblock content %}

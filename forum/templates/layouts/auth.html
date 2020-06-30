@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %}
+
+{% block main %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                {% include "layouts/auth/aside.html" %}
+            </div>
+            <div class="col-6">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+    </div>
+
+{% endblock main %}

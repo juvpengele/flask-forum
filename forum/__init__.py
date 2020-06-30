@@ -8,14 +8,11 @@ from forum.config import Config
 db = SQLAlchemy()
 modus = Modus()
 
-def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(config)
+app = Flask(__name__)
+app.config.from_object(Config)
 
-    db.init_app(app)
-    modus.init_app(app)
+db.init_app(app)
+modus.init_app(app)
 
-    app.register_blueprint(auth_blueprint)
-    app.register_blueprint(main_blueprint)
-
-    return app
+app.register_blueprint(auth_blueprint)
+app.register_blueprint(main_blueprint)
