@@ -20,7 +20,6 @@ class User(db.Model):
 
         return user
 
-
     def commit(self):
         db.session.add(self)
         db.session.commit()
