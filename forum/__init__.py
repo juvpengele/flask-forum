@@ -20,6 +20,7 @@ csrf = CSRFProtect(app)
 from forum.models.User import User
 from forum.modules.auth.routes import auth_blueprint
 from forum.modules.main.routes import main_blueprint
+from forum.modules.threads.routes import thread_blueprint
 
 
 login_manager = LoginManager(app)
@@ -31,3 +32,4 @@ def load_user(user_id):
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
+app.register_blueprint(thread_blueprint, url_prefix="threads")
