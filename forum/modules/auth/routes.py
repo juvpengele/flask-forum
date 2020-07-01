@@ -3,6 +3,7 @@ from forum.modules.auth.form import RegistrationForm
 from forum import bcrypt
 from forum.models.User import User
 from forum.utilities.functions import generate_random_str
+from forum.mails.registration_mail import RegistrationMail
 from datetime import datetime
 
 auth_blueprint = Blueprint('auth', __name__, template_folder='templates')
@@ -18,9 +19,11 @@ def register():
         password = bcrypt.generate_password_hash(registration_form.password.data).decode('utf-8')
         confirmation_token = generate_random_str(50)
 
-        User.create(name=name, email=email, password=password, confirmation_token=confirmation_token, created_at=datetime.utcnow())
-        
+        user = User.create(name=name, email=email, password=password, confirmation_token=confirmation_token, created_at=datetime.utcnow())
+        registration_mail = RegistrationMail(user)
+        registration_mail.send()
+
         flash("You have been registered successfully. Please valid your email", "success")
-        redirect(url_for("main.index"))
+        return redirect(url_for("main.index"))
 
     return render_template('auth/register.html', form=registration_form)

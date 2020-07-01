@@ -18,6 +18,8 @@ class User(db.Model):
         user = Cls(**kwargs)
         user.commit()
 
+        return user
+
 
     def commit(self):
         db.session.add(self)
