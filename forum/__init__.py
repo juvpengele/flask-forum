@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_modus import Modus
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
+from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 from forum.config import Config
 
 app = Flask(__name__)
@@ -12,9 +14,20 @@ db = SQLAlchemy(app)
 modus = Modus(app)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
+csrf = CSRFProtect(app)
 
+
+from forum.models.User import User
 from forum.modules.auth.routes import auth_blueprint
 from forum.modules.main.routes import main_blueprint
+
+
+login_manager = LoginManager(app)
+login_manager.login_view = "auth.login"
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)

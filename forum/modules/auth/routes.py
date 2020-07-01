@@ -1,10 +1,13 @@
+from datetime import datetime
 from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, login_required
 from forum.modules.auth.form import RegistrationForm
+from forum.modules.auth.form import LoginForm
 from forum import bcrypt
 from forum.models.User import User
 from forum.utilities.functions import generate_random_str
 from forum.mails.registration_mail import RegistrationMail
-from datetime import datetime
+
 
 auth_blueprint = Blueprint('auth', __name__, template_folder='templates')
 
@@ -38,6 +41,33 @@ def register_confirmation(token):
     user.confirmation_token = None
     user.commit()
 
-    ## Login user ...
+    login_user(user)
 
     return redirect(url_for("main.index"))
+
+
+@auth_blueprint.route('/login', methods=["GET", "POST"])
+def login():
+
+    login_form = LoginForm()
+
+    if login_form.validate_on_submit():
+        user = User.query.filter_by(email=login_form.email.data).first()
+
+        if bcrypt.check_password_hash(user.password, login_form.password.data) and user.email_verified_at != None:
+            login_user(user)
+            return redirect(url_for("main.index"))
+
+        flash("Your credentials do not match with our records", "error")
+
+    return render_template("auth/login.html", form=login_form)
+
+
+@login_required
+@auth_blueprint.route('/logout', methods=["POST"])
+def logout():
+    logout_user()
+
+    flash("You are logged out successfully.", "success")
+    return redirect(url_for('main.index'))
+    

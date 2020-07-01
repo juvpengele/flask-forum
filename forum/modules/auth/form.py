@@ -17,3 +17,13 @@ class RegistrationForm(FlaskForm):
         if User.query.filter_by(email=field.data).first() != None:
             raise ValueError("The email is already used by another user")
         
+
+class LoginForm(FlaskForm):
+
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=6)])
+    submit = SubmitField("Login")
+
+    def validate_email(form, field):
+        if User.query.filter_by(email=field.data).first() == None:
+            raise ValueError("Your credentials do not match with our records")

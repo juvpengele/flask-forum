@@ -14,12 +14,32 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      {% if current_user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="#">New thread</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profile
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <form method="POST" action="{{ url_for("auth.logout") }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="btn btn-white" type="submit">Logout</button>
+          </form>
+        </div>
+      </li>
+      {% else %}
       <li class="nav-item pr-2">
-        <a class="nav-link" href="#">Login</span></a>
+        <a class="nav-link" href="{{ url_for('auth.login') }}">Login</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('auth.register') }}">Register</span></a>
       </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

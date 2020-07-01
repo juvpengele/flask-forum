@@ -47,6 +47,7 @@ class RegistrationMail():
                 You are not the owner of the registration, please forget this email.
             </p>
         """.format(link=self._get_confirmation_link())
+        
 
     def _get_confirmation_link(self):
         return Config.APP_HOST + "/register/confirmation/" + self.recipient.confirmation_token
