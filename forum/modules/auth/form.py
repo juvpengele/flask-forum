@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, EqualTo, Email, Length
 from forum.models.User import User
-from forum import Bcrypt
+from forum import bcrypt
 
 class RegistrationForm(FlaskForm):
 
@@ -25,5 +25,14 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
     def validate_email(form, field):
-        if User.query.filter_by(email=field.data).first() == None:
+        
+        user = User.query.filter_by(email=field.data).first()
+    
+        if user == None:
             raise ValueError("Your credentials do not match with our records")
+
+        if form.password.data == "" or bcrypt.check_password_hash(user.password, form.password.data) == False:
+            raise ValueError("Your credentials do not match with our records")
+
+        if user.email_verified_at == None:
+            raise ValueError("You must validate your email before login")
