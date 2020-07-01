@@ -27,3 +27,17 @@ def register():
         return redirect(url_for("main.index"))
 
     return render_template('auth/register.html', form=registration_form)
+
+
+@auth_blueprint.route('/register/confirmation/<string:token>')
+def register_confirmation(token):
+
+    user = User.query.filter_by(confirmation_token=token).first_or_404()
+    
+    user.email_verified_at = datetime.utcnow()
+    user.confirmation_token = None
+    user.commit()
+
+    ## Login user ...
+
+    return redirect(url_for("main.index"))
