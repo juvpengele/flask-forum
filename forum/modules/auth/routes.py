@@ -11,6 +11,6 @@ def register():
     if registration_form.validate_on_submit():
         print("Validated")
 
-        redirect(url_for("auth"))
+        redirect(url_for("auth.register"))
 
     return render_template('auth/register.html', form=registration_form)

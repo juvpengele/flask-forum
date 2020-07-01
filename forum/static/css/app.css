@@ -5,8 +5,46 @@
 
 body {
     background-color: #f7fafc;
+    margin: 0;
+    padding:0;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: #031b4e;
+}
+
+.auth-aside {
+    min-height: 100vh;
+    background-color: #0268f8;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 992px) {
+    .auth-aside-container {
+        display: none;
+    }
+}
+
+.auth-aside div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-aside .title {
+    color: white;
+    font-size: 2.5rem;
+}
+
+.auth-aside .subtitle {
+    color: white;
+}
+
+.auth-form {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
 }

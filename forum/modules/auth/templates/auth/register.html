@@ -1,19 +1,48 @@
 {% extends "layouts/auth.html" %}
 
 {% block content %}
+<div class="auth-form">
+    <div class="container">
+        <div class="col-6 mx-auto">
+            <h2 class="text-center py-4">Welcome, you can sign up.</h2>
+            <form action="{{ url_for('auth.register') }}" method="POST">
+                <div class="form-group">
+                    {{ form.name.label }}
+                    {{ form.name(class="form-control")}}
+    
+                    {% for error in form.name.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label }}
+                    {{ form.email(class="form-control")}}
+    
+                    {% for error in form.email.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label }}
+                    {{ form.password(class="form-control")}}
+    
+                    {% for error in form.password.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.password_confirmation.label }}
+                    {{ form.password_confirmation(class="form-control")}}
 
-<div class="container">
-    <div class="col-6 mx-auto">
-        <h2 class="text-center py-4">Welcome, you can sign up.</h2>
-
-        <form action="{{ url_for('auth.register') }}" method="POST">
-            <div class="form-group">
-                {{ form.name.label }}
-                {{ form.name(class="form-control")}}
-            </div>
-        </form>
-        
-        
+                    {% for error in form.password_confirmation.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>    
+        </div>
     </div>
 </div>
 
