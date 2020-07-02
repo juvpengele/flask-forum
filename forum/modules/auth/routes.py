@@ -1,11 +1,12 @@
 from datetime import datetime
-from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
 from forum.modules.auth.form import RegistrationForm
 from forum.modules.auth.form import LoginForm
 from forum import bcrypt
-from forum.models.User import User
+from forum.models.user import User
 from forum.utilities.functions import generate_random_str
+from forum.utilities.helpers import now
 from forum.mails.registration_mail import RegistrationMail
 
 
@@ -38,9 +39,9 @@ def register_confirmation(token):
     user = User.query.filter_by(confirmation_token=token).first_or_404()
     
     user.update({
-        "confirmation_token":None,
-        "email_verified_at":datetime.utcnow(),
-        "updated_at": datetime.utcnow()
+        "confirmation_token": None,
+        "email_verified_at": now(),
+        "updated_at": now()
     })
 
     login_user(user)
@@ -50,7 +51,6 @@ def register_confirmation(token):
 
 @auth_blueprint.route('/login', methods=["GET", "POST"])
 def login():
-
     login_form = LoginForm()
 
     if login_form.validate_on_submit():

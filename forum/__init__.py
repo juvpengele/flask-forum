@@ -16,19 +16,19 @@ bcrypt = Bcrypt(app)
 mail = Mail(app)
 csrf = CSRFProtect(app)
 
-
-from forum.models.User import User
+from forum.models.user import User
 from forum.modules.auth.routes import auth_blueprint
 from forum.modules.main.routes import main_blueprint
 from forum.modules.threads.routes import thread_blueprint
 
-
 login_manager = LoginManager(app)
 login_manager.login_view = "auth.login"
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
