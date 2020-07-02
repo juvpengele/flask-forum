@@ -2,7 +2,7 @@ from forum.utilities.functions import generate_random_str
 
 class Config:
     SECRET_KEY=generate_random_str(30)
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost/flask_forum"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost/projects_flask_forum"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     MAIL_SERVER="localhost"    

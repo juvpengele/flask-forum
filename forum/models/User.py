@@ -1,7 +1,8 @@
 from forum import db
+from . import ModelMixin
 from flask_login import UserMixin
 
-class User(db.Model, UserMixin):
+class User(db.Model, UserMixin, ModelMixin):
 
     __tablename__ = "users"
     
@@ -20,7 +21,3 @@ class User(db.Model, UserMixin):
         user.commit()
 
         return user
-
-    def commit(self):
-        db.session.add(self)
-        db.session.commit()

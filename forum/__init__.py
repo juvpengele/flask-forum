@@ -32,4 +32,4 @@ def load_user(user_id):
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
-app.register_blueprint(thread_blueprint, url_prefix="threads")
+app.register_blueprint(thread_blueprint, url_prefix="/threads")

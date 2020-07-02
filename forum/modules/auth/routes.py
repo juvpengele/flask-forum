@@ -37,9 +37,11 @@ def register_confirmation(token):
 
     user = User.query.filter_by(confirmation_token=token).first_or_404()
     
-    user.email_verified_at = datetime.utcnow()
-    user.confirmation_token = None
-    user.commit()
+    user.update({
+        "confirmation_token":None,
+        "email_verified_at":datetime.utcnow(),
+        "updated_at": datetime.utcnow()
+    })
 
     login_user(user)
 
