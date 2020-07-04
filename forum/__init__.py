@@ -16,7 +16,7 @@ bcrypt = Bcrypt(app)
 mail = Mail(app)
 csrf = CSRFProtect(app)
 
-from forum.models.user import User
+from forum.models import User
 from forum.modules.auth.routes import auth_blueprint
 from forum.modules.main.routes import main_blueprint
 from forum.modules.threads.routes import thread_blueprint

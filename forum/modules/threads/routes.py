@@ -6,6 +6,6 @@ thread_blueprint = Blueprint("threads", __name__, template_folder="templates")
 
 
 @login_required
-@thread_blueprint.route("/")
+@thread_blueprint.route("/create")
 def create():
     return render_template("threads/create.html")
