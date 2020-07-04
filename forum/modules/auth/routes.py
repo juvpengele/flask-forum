@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request, abort
 from flask_login import login_user, logout_user, login_required
 from forum.modules.auth.form import RegistrationForm
 from forum.modules.auth.form import LoginForm
@@ -61,13 +61,15 @@ def login():
         user = User.query.filter_by(email=login_form.email.data).first()
                 
         login_user(user)
-        return redirect(url_for("main.index"))
+
+        next = request.args.get('next')
+        return redirect(next or url_for('main.index'))
         
     return render_template("auth/login.html", form=login_form)
 
 
-@login_required
 @auth_blueprint.route('/logout', methods=["POST"])
+@login_required
 def logout():
     logout_user()
 

@@ -1,7 +1,20 @@
-{% extends "layouts/app.html" %}
+{% extends "layouts/base.html" %}
 
-{% block content %}
-    
-    <h1>Home page</h1>
+{% block main %}
+    {% include "layouts/partials/navbar.html" %}
+
+    <div class="banner">
+        <h1 class="text-center">Dev Forum.</h1>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-6 mx-auto">
+                    <p class="text-center">
+                        Ask a development question or answer others questions.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 {% endblock %}

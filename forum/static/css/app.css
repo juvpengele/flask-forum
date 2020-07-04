@@ -48,3 +48,16 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
 }
+
+.banner {
+    background-color: #0268f8;
+    padding: 3rem 0;
+}
+
+.banner h1, .banner p {
+    color: white;
+}
+
+.banner h1 {
+    font-weight: bold;
+}

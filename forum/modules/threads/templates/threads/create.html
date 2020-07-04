@@ -1,1 +1,46 @@
-Create a thread
+{% extends "layouts/app.html" %}
+
+{% block content %}
+    <h4 class="mt-4">Ask your question</h4>
+    <hr/>
+    <form action="{{ url_for("threads.create") }}" method="POST">
+        {{ form.csrf_token }}
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 form-group">
+                {{ form.title.label }}
+                <div class="d-flex justify-content-end">
+                    <small>Enter 50 characters or more.</small>
+                </div>
+                {{ form.title(class="form-control") }}
+                {% for error in form.title.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+            <div class="col-sm-12 col-lg-6 form-group">
+                {{ form.category_id.label }}
+                <div class="d-flex justify-content-end">
+                    <small>Choose a category for your question</small>
+                </div>
+                {{ form.category_id(class="form-control custom-select") }}
+                {% for error in form.category_id.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+            <div class="col-12 form-group">
+                {{ form.content.label }}
+                <div class="d-flex justify-content-end">
+                    <small>Write your full question here, including any relevant information.</small>
+                </div>
+                {{ form.content(class="form-control", rows=8) }}
+                {% for error in form.content.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+            <div class="col-12  form-group mt-4">
+                {{ form.submit(class="btn btn-outline-primary w-100 btn-lg") }}
+            </div>
+        </div>
+    </form>
+
+
+{% endblock content %}
