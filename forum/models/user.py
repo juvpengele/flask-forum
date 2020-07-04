@@ -15,6 +15,6 @@ class User(Base, UserMixin):
     @classmethod
     def create(Cls, **kwargs):
         user = Cls(**kwargs)
-        user.commit()
+        user.save()
 
         return user

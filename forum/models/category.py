@@ -1,6 +1,5 @@
 from forum import db
 from forum.models import Base
-from forum.utilities.helpers import now
 
 
 class Category(Base):

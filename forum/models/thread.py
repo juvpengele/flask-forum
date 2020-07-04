@@ -8,6 +8,7 @@ class Thread(Base):
     slug = db.Column(db.String(250), nullable=False)
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
 
     owner = db.relationship("User", back_populates="threads")
     category = db.relationship("Category", back_populates="threads")

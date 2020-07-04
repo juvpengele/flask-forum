@@ -21,10 +21,14 @@ def register():
         name = registration_form.name.data
         email = registration_form.email.data
         password = bcrypt.generate_password_hash(registration_form.password.data).decode('utf-8')
-        confirmation_token = generate_random_str(50)
+        user = User.create(name=name,
+                           email=email,
+                           password=password,
+                           confirmation_token=generate_random_str(length=50),
+                           created_at=datetime.utcnow()
+                           )
 
-        user = User.create(name=name, email=email, password=password, confirmation_token=confirmation_token, created_at=datetime.utcnow())
-        registration_mail = RegistrationMail(user)
+        registration_mail = RegistrationMail(recipient=user)
         registration_mail.send()
 
         flash("You have been registered successfully. Please valid your email", "success")

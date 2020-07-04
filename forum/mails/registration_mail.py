@@ -14,7 +14,7 @@ class RegistrationMail:
         mail.send(message)
 
     def _get_message(self):
-        return Message("Dev forum - confirmation",
+        return Message("Dev Forum Registration - Email confirmation.",
                        sender="devforum@example.com",
                        recipients=[self.recipient.email],
                        html=self._get_html(),
