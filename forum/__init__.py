@@ -5,10 +5,12 @@ from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
-from forum.config import Config
+from config import Config
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
 
 db = SQLAlchemy(app)
 modus = Modus(app)
@@ -23,7 +25,6 @@ from forum.modules.threads.routes import thread_blueprint
 
 login_manager = LoginManager(app)
 login_manager.login_view = "auth.login"
-
 
 @login_manager.user_loader
 def load_user(user_id):
