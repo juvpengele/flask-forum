@@ -61,3 +61,52 @@ h1, h2, h3, h4, h5, h6 {
 .banner h1 {
     font-weight: bold;
 }
+
+.question {
+    padding-top:1rem;
+}
+
+.question .question-header {
+}
+
+.question .question-title {
+    color: #031b4e;
+    font-weight: bold;
+    display: block;
+    font-size: 1.6rem;
+}
+
+.question-title:hover {
+    text-decoration: none;
+    color: #4e79b5;
+}
+
+.question .question-category {
+    background: #f3f5f9;
+    color: #031b4e;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: .8rem;
+}
+
+.question .question-summary {
+    color: #405379;
+    font-size: .8rem;
+    margin-top: .3rem;
+}
+
+.question .question-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    border: 1px solid #cbcbcb;
+    font-size: .8rem;
+    padding: .6rem;
+    border-radius: 5px;
+    min-width: 80px;
+}
+
+.question .question-status:not(:last-child) {
+    margin-right: 8px;
+}

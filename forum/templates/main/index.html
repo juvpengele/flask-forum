@@ -14,7 +14,58 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <div class="container">
+        <div class="my-4">
+            {% for thread in threads %}
+                <div class="question">
+                    <div class="question-header">
+                        <a href="#" class="question-title">
+                            {{  thread.title }}
+                        </a>
+                        <div class="d-flex justify-content-between">
+                            <small class="question-category">
+                                {{ thread.category.name }}
+                            </small>
+                            <small class="text-black">
+                                Posted by {{ thread.owner.name }}
+                            </small>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-9">
+                            <p class="question-summary">
+                                {{ thread.summary }}
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-3">
+                            <div class="d-flex justify-content-end">
+                                <div class="question-status">
+                                    <span>
+                                        0
+                                    </span>
+                                    <span>
+                                        answers
+                                    </span>
+                                </div>
+                                <div class="question-status">
+                                    <span>
+                                        0
+                                    </span>
+                                    <span>
+                                        views
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 
 {% endblock %}

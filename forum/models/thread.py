@@ -13,3 +13,6 @@ class Thread(Base):
     owner = db.relationship("User", back_populates="threads")
     category = db.relationship("Category", back_populates="threads")
 
+    @property
+    def summary(self):
+        return self.content[0:300] + "..."
