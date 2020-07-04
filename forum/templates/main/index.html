@@ -20,7 +20,9 @@
             {% for thread in threads %}
                 <div class="question">
                     <div class="question-header">
-                        <a href="#" class="question-title">
+                        <a href="{{ url_for("threads.show", category_slug=thread.category.slug, thread_slug=thread.slug) }}"
+                           class="question-title">
+                            [{{ thread.category.name }}]
                             {{  thread.title }}
                         </a>
                         <div class="d-flex justify-content-between">

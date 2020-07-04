@@ -6,7 +6,7 @@ main_blueprint = Blueprint('main', __name__)
 
 @main_blueprint.route('/')
 def index():
-    threads = Thread.query.all()
+    threads = Thread.query.order_by(Thread.created_at.desc()).all()
     return render_template('main/index.html', threads=threads)
 
 
