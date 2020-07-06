@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from os import environ
 
-APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to application_top
+APP_ROOT = os.path.join(os.path.dirname(__file__), '..')  # refers to application_top
 dotenv_path = os.path.join(APP_ROOT, '.env')
 load_dotenv(dotenv_path)
 
@@ -20,3 +20,5 @@ class Config:
     MAIL_USERNAME = environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = environ.get("MAIL_PASSWORD")
     MAIL_DEFAULT_SENDER = environ.get("MAIL_DEFAULT_SENDER")
+    MAIL_USE_SSL = environ.get('MAIL_ENCRYPTION') == "ssl"
+    MAIL_USE_TLS = environ.get('MAIL_ENCRYPTION') == "tls"
