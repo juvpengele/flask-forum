@@ -6,7 +6,7 @@ from flask_mail import Mail
 from flask_login import LoginManager
 from flask_seeder import FlaskSeeder
 from flask_wtf.csrf import CSRFProtect
-from config import Config
+from forum.config import Config
 
 
 app = Flask(__name__)

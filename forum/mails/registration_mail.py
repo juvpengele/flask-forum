@@ -1,6 +1,6 @@
 from flask_mail import Message
 from forum import mail
-from config import Config
+from forum.config import Config
 
 
 class RegistrationMail:
