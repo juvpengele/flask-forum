@@ -1,15 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_modus import Modus
-from flask_bcrypt import Bcrypt
-from flask_mail import Mail
 from flask_login import LoginManager
 from flask_seeder import FlaskSeeder
+from flask_bcrypt import Bcrypt
+from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
 from forum.config import Config
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="public")
 app.config.from_object(Config)
 
 
@@ -22,10 +22,10 @@ csrf = CSRFProtect(app)
 seeder = FlaskSeeder()
 seeder.init_app(app, db)
 
-from forum.models import User
-from forum.modules.auth.routes import auth_blueprint
-from forum.modules.main.routes import main_blueprint
-from forum.modules.threads.routes import thread_blueprint
+from forum.database.models import User
+from forum.apps.auth.routes import auth_blueprint
+from forum.apps.main.routes import main_blueprint
+from forum.apps.threads.routes import thread_blueprint
 
 login_manager = LoginManager(app)
 login_manager.login_view = "auth.login"
@@ -42,4 +42,4 @@ app.register_blueprint(thread_blueprint, url_prefix="/threads")
 
 
 # seeders
-from .seeds.category_seeder import CategorySeeder
+from forum.database.seeds.category_seeder import CategorySeeder

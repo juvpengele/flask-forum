@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from forum.models.thread import Thread
+from forum.database.models.thread import Thread
 
 main_blueprint = Blueprint('main', __name__)
 

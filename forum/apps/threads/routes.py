@@ -2,7 +2,7 @@ from flask import redirect, url_for, flash, Blueprint, render_template
 from flask_login import login_required, current_user
 from slugify import slugify
 from .forms import ThreadCreationForm
-from forum.models import Thread, Category
+from forum.database.models import Thread, Category
 
 thread_blueprint = Blueprint("threads", __name__, template_folder="templates")
 
@@ -18,7 +18,13 @@ def create():
         content = thread_form.content.data
         user_id = current_user.id
 
-        thread = Thread(title=title, category_id=category_id, content=content, user_id=user_id, slug=slugify(title))
+        thread = Thread(title=title,
+                        category_id=category_id,
+                        content=content,
+                        user_id=user_id,
+                        slug=slugify(title),
+                        views_count=0
+                        )
         thread.save()
 
         flash("Your question has been posted successfully", "success")
@@ -31,5 +37,7 @@ def create():
 def show(category_slug, thread_slug):
     category = Category.query.filter_by(slug=category_slug).first_or_404()
     thread = Thread.query.filter_by(category_id=category.id, slug=thread_slug).first_or_404()
+
+    thread.update({"views_count": thread.views_count + 1})
 
     return render_template("threads/show.html", thread=thread)

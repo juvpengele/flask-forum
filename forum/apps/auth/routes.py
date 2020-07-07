@@ -1,13 +1,13 @@
 from datetime import datetime
 from flask import Blueprint, render_template, redirect, url_for, flash, request, abort
 from flask_login import login_user, logout_user, login_required
-from forum.modules.auth.form import RegistrationForm
-from forum.modules.auth.form import LoginForm
+from forum.apps.auth.form import RegistrationForm
+from forum.apps.auth.form import LoginForm
 from forum import bcrypt
-from forum.models.user import User
-from forum.utilities.functions import generate_random_str
-from forum.utilities.helpers import now
-from forum.mails.registration_mail import RegistrationMail
+from forum.database.models.user import User
+from forum.src.utilities.functions import generate_random_str
+from forum.src.utilities.helpers import now
+from forum.src.mails.registration_mail import RegistrationMail
 
 
 auth_blueprint = Blueprint('auth', __name__, template_folder='templates')

@@ -22,7 +22,6 @@
                     <div class="question-header">
                         <a href="{{ url_for("threads.show", category_slug=thread.category.slug, thread_slug=thread.slug) }}"
                            class="question-title">
-                            [{{ thread.category.name }}]
                             {{  thread.title }}
                         </a>
                         <div class="d-flex justify-content-between">
@@ -53,7 +52,7 @@
                                 </div>
                                 <div class="question-status">
                                     <span>
-                                        0
+                                        {{ thread.views_count }}
                                     </span>
                                     <span>
                                         views

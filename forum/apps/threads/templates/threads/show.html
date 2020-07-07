@@ -1,0 +1,20 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+    <div class="container question">
+        <div class="row my-4">
+            <div class="col-sm-12 col-lg-9">
+                <h3>{{  thread.title }}</h3>
+                <div class="d-flex align-items-center justify-content-between">
+                    <small class="question-category">{{ thread.category.name }}</small>
+                    <small class="text-black">Posted by {{ thread.owner.name }}</small>
+                </div>
+
+                <hr />
+                {{ thread.content }}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
