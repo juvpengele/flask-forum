@@ -3,6 +3,6 @@ module.exports = {
     entry: "./assets/js/index.js",
     output: {
         path: __dirname + '/public/js',
-        filename: '[name].[hash].js'
+        filename: '[name].js'
     }
 };

@@ -1,1 +1,1 @@
-const hello = "Hello world";
+require('./bootstrap');
