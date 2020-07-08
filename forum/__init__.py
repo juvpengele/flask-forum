@@ -6,6 +6,7 @@ from flask_seeder import FlaskSeeder
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
+from flask_debugtoolbar import DebugToolbarExtension
 from forum.config import Config
 
 
@@ -18,6 +19,7 @@ modus = Modus(app)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
 csrf = CSRFProtect(app)
+toolbar = DebugToolbarExtension(app)
 
 seeder = FlaskSeeder()
 seeder.init_app(app, db)
@@ -26,6 +28,7 @@ from forum.database.models import User
 from forum.apps.auth.routes import auth_blueprint
 from forum.apps.main.routes import main_blueprint
 from forum.apps.threads.routes import thread_blueprint
+from forum.apps.comments.routes import comments_blueprint
 
 login_manager = LoginManager(app)
 login_manager.login_view = "auth.login"
@@ -39,7 +42,7 @@ def load_user(user_id):
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
 app.register_blueprint(thread_blueprint, url_prefix="/threads")
-
+app.register_blueprint(comments_blueprint)
 
 # seeders
 from forum.database.seeds.category_seeder import CategorySeeder
