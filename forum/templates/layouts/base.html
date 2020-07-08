@@ -6,12 +6,15 @@
     <title>{% block title %}{% endblock title %} Forum</title>
     <link rel="stylesheet" href="{{ url_for('static', filename="css/bootstrap.min.css") }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename="css/app.css") }}"/>
-    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;600;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename="css/izitoast.min.css") }}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     
     {% block main %}{% endblock %}
 
     <script src="{{ url_for('static', filename="js/main.js") }}"></script>
+
+    {% include "layouts/partials/alert.html" %}
 </body>
 </html>
