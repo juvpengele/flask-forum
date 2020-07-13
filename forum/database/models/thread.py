@@ -17,3 +17,6 @@ class Thread(Base):
     @property
     def summary(self):
         return self.content[0:300] + "..."
+
+    def is_owner(self, user):
+        return user == self.owner

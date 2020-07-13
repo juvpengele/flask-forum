@@ -1,4 +1,4 @@
-from flask import redirect, url_for, flash, Blueprint, render_template
+from flask import redirect, url_for, flash, Blueprint, render_template, abort
 from flask_login import login_required, current_user
 from slugify import slugify
 from .forms import ThreadCreationForm
@@ -41,3 +41,16 @@ def show(category_slug, thread_slug):
     thread.update({"views_count": thread.views_count + 1})
 
     return render_template("threads/show.html", thread=thread)
+
+
+@thread_blueprint.route("<string:category_slug>/<string:thread_slug>/edit")
+@login_required
+def edit(category_slug, thread_slug):
+
+    category = Category.query.filter_by(slug=category_slug).first_or_404()
+    thread = Thread.query.filter_by(category_id=category.id, slug=thread_slug).first_or_404()
+
+    if not thread.is_owner(current_user):
+        abort(403)
+
+    return render_template("threads/edit.html", thread=thread)

@@ -1,12 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_modus import Modus
 from flask_login import LoginManager
 from flask_seeder import FlaskSeeder
+from flask_debugtoolbar import DebugToolbarExtension
+from flask_modus import Modus
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
-from flask_debugtoolbar import DebugToolbarExtension
 from forum.config import Config
 
 
