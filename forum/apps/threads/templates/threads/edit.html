@@ -3,7 +3,7 @@
 {% block content %}
     <h4 class="mt-4">Edit your question</h4>
     <hr/>
-    <form action="{{ url_for("threads.create") }}" method="POST">
+    <form action="{{ url_for("threads.show", category_slug=thread.category.slug, thread_slug=thread.slug) }}?_method=PUT" method="POST">
         {{ form.csrf_token }}
         <div class="row">
             <div class="col-sm-12 col-lg-6 form-group">
@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-end">
                     <small>Enter 50 characters or more.</small>
                 </div>
-                {{ form.title(class="form-control", value=thread.title) }}
+                {{ form.title(class="form-control") }}
                 {% for error in form.title.errors %}
                     <small class="text-danger">{{ error }}</small>
                 {% endfor %}
@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-end">
                     <small>Choose a category for your question</small>
                 </div>
-                {{ form.category_id(class="form-control custom-select", value=thread.category_id) }}
+                {{ form.category_id(class="form-control custom-select") }}
                 {% for error in form.category_id.errors %}
                     <small class="text-danger">{{ error }}</small>
                 {% endfor %}

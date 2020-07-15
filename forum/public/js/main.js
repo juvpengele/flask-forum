@@ -104,7 +104,18 @@ eval("window.$ = __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! ./bootstrap */ \"./assets/js/bootstrap.js\");\n\n//# sourceURL=webpack:///./assets/js/index.js?");
+eval("__webpack_require__(/*! ./bootstrap */ \"./assets/js/bootstrap.js\");\n\n__webpack_require__(/*! ./utils */ \"./assets/js/utils.js\");\n\n//# sourceURL=webpack:///./assets/js/index.js?");
+
+/***/ }),
+
+/***/ "./assets/js/utils.js":
+/*!****************************!*\
+  !*** ./assets/js/utils.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("var deleteForm = document.querySelector('.form-delete');\n\nif (deleteForm) {\n  deleteForm.addEventListener('submit', function (event) {\n    event.preventDefault();\n    iziToast.question({\n      timeout: 20000,\n      close: true,\n      overlay: true,\n      displayMode: 'once',\n      id: 'question',\n      zindex: 999,\n      title: 'Delete your question',\n      message: 'Are you sure?',\n      position: 'center',\n      buttons: [['<button><b>YES</b></button>', function (instance, toast) {\n        deleteForm.submit();\n        instance.hide({\n          transitionOut: 'fadeOut'\n        }, toast, 'submit');\n      }, true], ['<button >NO</button>', function (instance, toast) {\n        instance.hide({\n          transitionOut: 'fadeOut'\n        }, toast, 'cancel');\n      }]],\n      onClosing: function onClosing(instance, toast, closedBy) {},\n      onClosed: function onClosed(instance, toast, closedBy) {}\n    });\n  });\n}\n\n//# sourceURL=webpack:///./assets/js/utils.js?");
 
 /***/ }),
 

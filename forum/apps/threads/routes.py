@@ -33,7 +33,7 @@ def create():
     return render_template("threads/create.html", form=thread_form)
 
 
-@thread_blueprint.route("<string:category_slug>/<string:thread_slug>", methods=["GET", "POST", "DELETE"])
+@thread_blueprint.route("<string:category_slug>/<string:thread_slug>", methods=["GET", "POST", "DELETE", "PUT"])
 def show(category_slug, thread_slug):
     category = Category.query.filter_by(slug=category_slug).first_or_404()
     thread = Thread.query.filter_by(category_id=category.id, slug=thread_slug).first_or_404()
@@ -44,12 +44,26 @@ def show(category_slug, thread_slug):
     if request.method == b"DELETE":
         if thread.is_owner(current_user):
             thread.delete()
-            flash("Votre question a été supprimée avec succès", "success")
+            flash("Your question has been deleted successfully", "success")
 
             return redirect(url_for('main.index'))
         else:
             abort(403)
         
+    if request.method == b"PUT":
+        if thread.is_owner(current_user):
+            thread.update({
+                "title": request.form['title'],
+                "slug": slugify(request.form['title']),
+                "category_id": request.form['category_id'],
+                "content": request.form['content']
+            })
+
+            flash("Your question has been updated successfully", "success")
+
+            return redirect(url_for('threads.show', category_slug=thread.category.slug, thread_slug=thread.slug))
+        else:
+            abort(403)
 
     return render_template("threads/show.html", thread=thread)
 
@@ -65,5 +79,10 @@ def edit(category_slug, thread_slug):
         abort(403)
 
     thread_form = ThreadCreationForm()
+
+    thread_form.title.data = thread.title
+    thread_form.category_id.data = thread.category_id
+    thread_form.content.data = thread.content
+    thread_form.submit.label.text = "Edit"
 
     return render_template("threads/edit.html", thread=thread, form=thread_form)
