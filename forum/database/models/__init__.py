@@ -17,6 +17,10 @@ class Base(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 from .user import User
 from .category import Category

@@ -8,11 +8,15 @@
                     <h3>{{  thread.title }}</h3>
                     {% if current_user.is_authenticated and thread.is_owner(current_user) %}
                     <div>
-                        <a href="{{
-                                url_for('threads.edit', category_slug=thread.category.slug, thread_slug=thread.slug) }}"
+                        <a href="{{ url_for('threads.edit', category_slug=thread.category.slug, thread_slug=thread.slug) }}"
                            class="btn btn-sm btn-primary"
                         >Modifier</a>
-                        <a href="#" class="btn btn-sm btn-danger ">Supprimer</a>
+                        <form action="{{ url_for('threads.show', 
+                            category_slug=thread.category.slug,
+                            thread_slug=thread.slug) }}?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-sm btn-danger ">Supprimer</button>
+                        </form>
+                        
                     </div>
                     {% endif %}
                 </div>
