@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container question">
         <div class="row my-4">
-            <div class="col-sm-12 col-lg-9">
+            <div class="col-sm-12 col-lg-9 p-4 bg-white shadow-sm">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3>{{  thread.title }}</h3>
                     {% if current_user.is_authenticated and thread.is_owner(current_user) %}

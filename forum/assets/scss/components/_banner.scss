@@ -1,0 +1,12 @@
+.banner {
+    background-color: #0268f8;
+    padding: 3rem 0;
+
+    & h1, & p {
+        color: white;
+    }
+
+    & h1 {
+        font-weight: bold;
+    }
+}

@@ -1,11 +1,15 @@
 const dev = process.env.NODE_ENV === "dev";
+const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const buildDirectory = path.resolve(__dirname);
 
 const config = {
-    mode: 'development',
+    mode: dev ? 'development' : 'production',
     entry: "./assets/js/index.js",
     output: {
-        path: __dirname + '/public/js',
+        path: buildDirectory + '/public/js',
         filename: '[name].js'
     },
     watch: dev,
@@ -26,15 +30,44 @@ const config = {
                     },
                 }
             },
+            {
+                test: /\.scss$/,
+                loader: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: './assets/css',
+                            hmr: dev
+                        },
+                    },
+                    'css-loader',
+                    'sass-loader'
+                ]
+            },
+            {
+                test: /\.css$/,
+                loader: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: './assets/css',
+                        },
+                    },
+                    'css-loader'
+                ]
+            }
         ]
     },
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
+            'vue$': 'vue/dist/vue.common.js',
         }
     },
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '../css/[name].css',
+        })
     ]
 };
 

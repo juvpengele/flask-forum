@@ -17,9 +17,9 @@
     </div>
     <div class="container">
         <div class="my-4">
-            <example-component></example-component>
+
             {% for thread in threads %}
-                <div class="question">
+                <div class="question  p-3 bg-white mb-4 shadow-sm">
                     <div class="question-header">
                         <a href="{{ url_for("threads.show", category_slug=thread.category.slug, thread_slug=thread.slug) }}"
                            class="question-title">
@@ -63,7 +63,6 @@
 
                         </div>
                     </div>
-
                 </div>
             {% endfor %}
         </div>
