@@ -25,3 +25,4 @@ class Base(db.Model):
 from .user import User
 from .category import Category
 from .thread import Thread
+from .comment import Comment
