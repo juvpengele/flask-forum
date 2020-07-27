@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_seeder import FlaskSeeder
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_modus import Modus
+from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
@@ -19,6 +20,7 @@ modus = Modus(app)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
 csrf = CSRFProtect(app)
+migrate = Migrate(app, db)
 toolbar = DebugToolbarExtension(app)
 
 seeder = FlaskSeeder()

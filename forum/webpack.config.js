@@ -2,6 +2,7 @@ const dev = process.env.NODE_ENV === "dev";
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 const buildDirectory = path.resolve(__dirname);
 
@@ -67,6 +68,15 @@ const config = {
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css',
+        }),
+        new BrowserSyncPlugin({
+            host: 'localhost',
+            port: 3000,
+            proxy: 'http://localhost:5000/',
+            files:  [
+                "public/css/main.css", "public/js/main.js",
+                "apps/**/*.py"
+            ]
         })
     ]
 };
