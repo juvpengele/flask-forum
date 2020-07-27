@@ -3,34 +3,40 @@
 {% block content %}
     <div class="container question">
         <div class="row my-4">
-            <div class="col-sm-12 col-lg-9 p-4 bg-white shadow-sm">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h3>{{  thread.title }}</h3>
-                    {% if current_user.is_authenticated and thread.is_owner(current_user) %}
-                    <div class="d-flex">
-                        <a href="{{ url_for('threads.edit', category_slug=thread.category.slug, thread_slug=thread.slug) }}"
-                           class="btn btn-sm btn-primary mr-2"
-                        >Modifier</a>
-                        <form action="{{ url_for('threads.show', 
-                            category_slug=thread.category.slug,
-                            thread_slug=thread.slug) }}?_method=DELETE" method="POST"
-                            class="form-delete"
-                        >
-                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
-                        </form>
+            <div class="col-sm-12 col-lg-9 ">
+                <div class="bg-white shadow-sm p-4 ">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>{{  thread.title }}</h3>
+                        {% if current_user.is_authenticated and thread.is_owner(current_user) %}
+                        <div class="d-flex">
+                            <a href="{{ url_for('threads.edit', category_slug=thread.category.slug, thread_slug=thread.slug) }}"
+                               class="btn btn-sm btn-primary mr-2"
+                            >Modifier</a>
+                            <form action="{{ url_for('threads.show', 
+                                category_slug=thread.category.slug,
+                                thread_slug=thread.slug) }}?_method=DELETE" method="POST"
+                                class="form-delete"
+                            >
+                                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                            </form>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small class="question-category">{{ thread.category.name }}</small>
+                        <small class="text-black">Posted by {{ thread.owner.name }}</small>
+                    </div>
+    
+                    <hr />
+                    {{ thread.content }}
                 </div>
-                <div class="d-flex align-items-center justify-content-between">
-                    <small class="question-category">{{ thread.category.name }}</small>
-                    <small class="text-black">Posted by {{ thread.owner.name }}</small>
-                </div>
-
-                <hr />
-                {{ thread.content }}
+                
+                <comments></comments>
             </div>
+            
         </div>
     </div>
 
+   
 
 {% endblock content %}

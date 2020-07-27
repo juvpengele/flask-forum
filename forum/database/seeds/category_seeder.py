@@ -1,5 +1,5 @@
 from flask_seeder import Seeder, generator
-from ..models import Category
+from forum.database.models import Category
 from slugify import slugify
 
 

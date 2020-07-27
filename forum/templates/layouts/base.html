@@ -6,6 +6,11 @@
     <title>{% block title %}{% endblock title %} Forum</title>
     <link rel="stylesheet" href="{{ url_for('static', filename="css/main.css") }}"/>
     <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;600;700&display=swap" rel="stylesheet">
+    {% if current_user.is_authenticated %}
+        <script>
+            window.Auth = {{ current_user.id }}
+        </script>
+    {% endif %}
 </head>
 <body>
     <div id="root">

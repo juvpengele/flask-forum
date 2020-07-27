@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 from forum import db
+import json
 from . import Base
 
 
@@ -21,3 +22,4 @@ class User(Base, UserMixin):
         user.save()
 
         return user
+

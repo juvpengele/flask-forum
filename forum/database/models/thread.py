@@ -1,5 +1,6 @@
 from forum import db
 from . import Base
+from .comment import Comment
 
 
 class Thread(Base):
@@ -13,6 +14,7 @@ class Thread(Base):
 
     owner = db.relationship("User", back_populates="threads")
     category = db.relationship("Category", back_populates="threads")
+    comments = db.relationship("Comment", back_populates="thread")
 
     @property
     def summary(self):
@@ -20,3 +22,9 @@ class Thread(Base):
 
     def is_owner(self, user):
         return user == self.owner
+
+    def add_comment(self, content, owner):
+        comment = Comment(content=content, user_id=owner.id, thread_id=self.id)
+        comment.save()
+
+        return comment
