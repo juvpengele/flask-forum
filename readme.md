@@ -74,7 +74,7 @@ other tool to create your virtualenv:
 *   Seeds required data to the database
 
 ```shell
-    $ flask seed run --root="forum/seeds"
+    $ flask seed run --root="forum/database/seeds"
 ```
 
 *   Start the development server
