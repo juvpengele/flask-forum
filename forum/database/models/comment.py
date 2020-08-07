@@ -11,11 +11,3 @@ class Comment(Base):
     
     owner = db.relationship("User", back_populates="comments")
     thread = db.relationship("Thread", back_populates="comments")
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "content": self.content,
-
-
-        }

@@ -7,6 +7,7 @@ from flask_modus import Modus
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
+from flask_marshmallow import Marshmallow
 from flask_wtf.csrf import CSRFProtect
 from forum.config import Config
 
@@ -16,6 +17,7 @@ app.config.from_object(Config)
 
 
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 modus = Modus(app)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
