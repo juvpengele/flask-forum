@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user
 from forum.database.models import Thread, Comment
-from forum.src.api.comment_schema import comments_schema
+from forum.src.api.comment_schema import comments_schema, comment_schema
 
 
 comments_blueprint = Blueprint("comments", __name__)
@@ -11,8 +11,14 @@ comments_blueprint = Blueprint("comments", __name__)
 def index(thread_id):
     thread = Thread.query.get_or_404(thread_id)
 
-    comments = Comment.query.filter_by(thread_id=thread.id).all()
+    if request.method == "POST":
+        comment = Comment(content=request.json["content"], user_id=current_user.id, thread_id=thread.id)
+        comment.save()
 
-    return jsonify(comments_schema.dump(comments)), 200
+        return jsonify(comment_schema.dump(comment)), 201
 
-
+    else:
+        comments = Comment.query.filter_by(thread_id=thread.id)\
+                                .order_by(Comment.created_at.desc())\
+                                .all()
+        return jsonify(comments_schema.dump(comments)), 200

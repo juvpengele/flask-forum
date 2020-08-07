@@ -1,7 +1,9 @@
 <template>
     <div>
-        <CommentForm/>
-        <Comment v-for="comment in comments" :comment="comment" :key="comment.id"/>
+        <CommentForm  :threadId="id" @submit="handleNewComment"/>
+        <div class="my-3">
+            <Comment v-for="comment in comments" :comment="comment" :key="comment.id"/>
+        </div>
     </div>
 </template>
 
@@ -28,7 +30,11 @@ export default {
              axios.get(`/api/threads/${this.id}/comments`)
                 .then(({data}) => this.comments = data)
 
+        },
+        handleNewComment(comment) {
+            console.log(comment);
+            this.comments.unshift(comment)
         }
-    }
+    },
 }
 </script>

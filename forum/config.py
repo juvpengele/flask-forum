@@ -22,3 +22,5 @@ class Config:
     MAIL_DEFAULT_SENDER = environ.get("MAIL_DEFAULT_SENDER")
     MAIL_USE_SSL = environ.get('MAIL_ENCRYPTION') == "ssl"
     MAIL_USE_TLS = environ.get('MAIL_ENCRYPTION') == "tls"
+
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
