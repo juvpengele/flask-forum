@@ -1,3 +1,5 @@
+from sqlalchemy.ext.hybrid import hybrid_property
+
 from forum import db
 from . import Base
 from .comment import Comment
@@ -28,3 +30,8 @@ class Thread(Base):
         comment.save()
 
         return comment
+
+    @hybrid_property
+    def comments_count(self):
+        #return len(self.children)   # @note: use when non-dynamic relationship
+        return len(self.comments)

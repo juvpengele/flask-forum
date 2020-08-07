@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="my-4">
         <form method="POST" @submit="handleSubmit">
             <input  class="form-control" placeholder="Your comment..."/>
         </form>

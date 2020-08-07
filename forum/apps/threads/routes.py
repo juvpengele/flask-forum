@@ -36,7 +36,9 @@ def create():
 @thread_blueprint.route("<string:category_slug>/<string:thread_slug>", methods=["GET", "POST", "DELETE", "PUT"])
 def show(category_slug, thread_slug):
     category = Category.query.filter_by(slug=category_slug).first_or_404()
-    thread = Thread.query.filter_by(category_id=category.id, slug=thread_slug).first_or_404()
+    thread = Thread.query\
+        .filter_by(category_id=category.id, slug=thread_slug)\
+        .first_or_404()
 
     if request.method == "GET":
         thread.update({"views_count": thread.views_count + 1})
