@@ -12,7 +12,7 @@
 
     {% if current_user.is_authenticated %}
         <script>
-            window.Auth = {{ current_user.id }}
+            window.Auth = {{ current_user.json_attributes() | tojson }}
         </script>
     {% endif %}
 </head>

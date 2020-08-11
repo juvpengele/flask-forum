@@ -14,7 +14,7 @@ const config = {
         filename: '[name].js'
     },
     watch: dev,
-    devtool: dev ? "cheap-module-eval-source-map": "source-map",
+    //devtool: dev ? "cheap-module-eval-source-map": "source-map",
     module: {
         rules: [
             {
@@ -41,7 +41,9 @@ const config = {
                             hmr: dev
                         },
                     },
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                    },
                     'sass-loader'
                 ]
             },
@@ -55,6 +57,19 @@ const config = {
                         },
                     },
                     'css-loader'
+                ]
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            publicPath: '/public/fonts',
+                            outputPath: '../fonts'
+                        }
+                    }
                 ]
             }
         ]
@@ -76,7 +91,8 @@ const config = {
             files:  [
                 "public/css/main.css", "public/js/main.js",
                 "apps/**/*.py"
-            ]
+            ],
+            watch: true
         })
     ]
 };

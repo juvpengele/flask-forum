@@ -9,7 +9,10 @@
         <div class="comment-content">
             {{ comment.content }}
         </div>
-
+        <div class="d-flex justify-content-end">
+            <i class="las la-pencil-alt"></i>
+            <span></span>
+        </div>
     </div>
 </template>
 

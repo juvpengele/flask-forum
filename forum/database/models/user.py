@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from forum import db
-import json
+from flask import Markup
 from . import Base
 
 
@@ -15,11 +15,16 @@ class User(Base, UserMixin):
     threads = db.relationship("Thread", back_populates="owner")
     comments = db.relationship("Comment", back_populates="owner")
 
-
     @classmethod
-    def create(Cls, **kwargs):
-        user = Cls(**kwargs)
+    def create(cls, **kwargs):
+        user = cls(**kwargs)
         user.save()
 
         return user
 
+    def json_attributes(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "name": self.name
+        }

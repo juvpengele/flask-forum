@@ -33,5 +33,4 @@ class Thread(Base):
 
     @hybrid_property
     def comments_count(self):
-        #return len(self.children)   # @note: use when non-dynamic relationship
         return len(self.comments)
