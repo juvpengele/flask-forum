@@ -10,18 +10,38 @@
             {{ comment.content }}
         </div>
         <div class="d-flex justify-content-end">
-            <i class="las la-pencil-alt"></i>
-            <span></span>
+            <button class="btn" v-show="isOwner">
+                <i class="las la-pencil-alt"></i>
+            </button>
+            <button class="btn btn-danger " @click="deleteComment" v-show="isOwner">
+                <i class="las la-trash text-white"></i>
+            </button>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    props: [
-        'comment'
-    ]
-}
+    import axios from "axios";
+
+    export default {
+        props: [
+            'comment'
+        ],
+        methods: {
+            deleteComment() {
+                const url = `/api/comments/${this.comment.id}`;
+
+                axios.delete(url)
+                    .then(() => this.$emit('delete', this.comment))
+                    .catch(e => console.log(e))
+            }
+        },
+        computed: {
+            isOwner() {
+                return !! window.Auth && window.Auth.id === this.comment.owner.id
+            }
+        }
+    }
 </script>
 
 <style>

@@ -11,3 +11,7 @@ class Comment(Base):
     
     owner = db.relationship("User", back_populates="comments")
     thread = db.relationship("Thread", back_populates="comments")
+
+    def is_owner(self, user):
+        print(self.user_id, user.id)
+        return self.owner == user

@@ -2,7 +2,9 @@
     <div>
         <CommentForm  :threadId="id" @submit="handleNewComment"/>
         <div class="my-3">
-            <Comment v-for="comment in comments" :comment="comment" :key="comment.id"/>
+            <Comment v-for="comment in comments" :comment="comment" :key="comment.id"
+                @delete="removeComment"
+            />
         </div>
     </div>
 </template>
@@ -32,8 +34,10 @@ export default {
 
         },
         handleNewComment(comment) {
-            console.log(comment);
             this.comments.unshift(comment)
+        },
+        removeComment(deletedComment) {
+            this.comments = this.comments.filter((comment) => comment.id !== deletedComment.id);
         }
     },
 }
