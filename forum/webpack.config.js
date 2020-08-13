@@ -14,7 +14,7 @@ const config = {
         filename: '[name].js'
     },
     watch: dev,
-    //devtool: dev ? "cheap-module-eval-source-map": "source-map",
+    //devtool: dev ? "cheap-module-eval-source-map": false,
     module: {
         rules: [
             {
@@ -84,17 +84,20 @@ const config = {
         new MiniCssExtractPlugin({
             filename: '../css/[name].css',
         }),
-        new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 3000,
-            proxy: 'http://localhost:5000/',
-            files:  [
-                "public/css/main.css", "public/js/main.js",
-                "apps/**/*.py"
-            ],
-            watch: true
-        })
     ]
 };
+
+if(dev) {
+    config.push(new BrowserSyncPlugin({
+        host: 'localhost',
+        port: 3000,
+        proxy: 'http://localhost:5000/',
+        files:  [
+            "public/css/main.css", "public/js/main.js",
+            "apps/**/*.py"
+        ],
+        watch: true
+    }))
+}
 
 module.exports = config;

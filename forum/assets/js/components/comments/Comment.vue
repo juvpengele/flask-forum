@@ -7,15 +7,32 @@
             </h6>
         </div>
         <div class="comment-content">
-            {{ comment.content }}
+            <textarea v-model="content" class="form-control mb-2" v-show="editing"></textarea>
+            <div v-if="! editing">
+                {{ comment.content }}
+            </div>
+
         </div>
         <div class="d-flex justify-content-end">
-            <button class="btn" v-show="isOwner">
-                <i class="las la-pencil-alt"></i>
-            </button>
-            <button class="btn btn-danger " @click="deleteComment" v-show="isOwner">
-                <i class="las la-trash text-white"></i>
-            </button>
+            <div class="d-flex" v-if="! editing">
+                <button class="btn btn-light mr-2" v-show="isOwner" @click="showEditionInput">
+                    <i class="las la-pencil-alt"></i>
+                </button>
+                <button class="btn btn-light " @click="deleteComment" v-show="isOwner">
+                    <i class="las la-trash text-danger"></i>
+                </button>
+            </div>
+            <div class="d-flex" v-if="editing">
+                <button class="btn btn-light text-danger mr-2" v-show="isOwner" @click="hideEditionInput">
+                    Cancel
+                </button>
+                <button class="btn btn-light text-primary" v-show="isOwner"
+                    @click.prevent="updateComment"
+                >
+                    Save
+                </button>
+            </div>
+
         </div>
     </div>
 </template>
@@ -27,13 +44,39 @@
         props: [
             'comment'
         ],
+        data() {
+            return {
+                editing: false,
+                content: ""
+            }
+        },
         methods: {
+            endpoint() {
+                return `/api/comments/${this.comment.id}`;
+            },
             deleteComment() {
-                const url = `/api/comments/${this.comment.id}`;
-
-                axios.delete(url)
-                    .then(() => this.$emit('delete', this.comment))
+                axios.delete(this.endpoint())
+                    .then(() => {
+                        this.$emit('delete', this.comment)
+                    })
                     .catch(e => console.log(e))
+            },
+            showEditionInput() {
+                this.content = this.comment.content;
+                this.editing = true;
+            },
+            hideEditionInput() {
+                this.editing = false;
+            },
+            updateComment() {
+                this.$emit('update', { ...this.comment, content: this.content });
+                this.editing = false;
+
+                axios.patch(this.endpoint(), { content: this.content })
+                    .then(({data}) => {
+                        this.$emit('update', data)
+                    })
+                    .catch(error => console.log(error));
             }
         },
         computed: {

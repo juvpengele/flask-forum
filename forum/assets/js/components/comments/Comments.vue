@@ -3,7 +3,7 @@
         <CommentForm  :threadId="id" @submit="handleNewComment"/>
         <div class="my-3">
             <Comment v-for="comment in comments" :comment="comment" :key="comment.id"
-                @delete="removeComment"
+                @delete="removeComment" @update="updateComment"
             />
         </div>
     </div>
@@ -38,6 +38,15 @@ export default {
         },
         removeComment(deletedComment) {
             this.comments = this.comments.filter((comment) => comment.id !== deletedComment.id);
+        },
+        updateComment(updatedComment) {
+            this.comments = this.comments.map(comment => {
+                if(updatedComment.id === comment.id) {
+                    comment = updatedComment;
+                }
+
+                return comment
+            })
         }
     },
 }

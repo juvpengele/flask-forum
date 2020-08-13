@@ -37,7 +37,7 @@
         },
         methods: {
             handleSubmit() {
-                axios.post(`/api/threads/${this.threadId}/comments`, {content:this.content})
+                axios.post(`/api/threads/${this.threadId}/comments`, {content: this.content})
                     .then(({data}) => {
                         this.content = "";
                         this.$emit('submit', data);

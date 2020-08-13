@@ -1,7 +1,10 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 from flask_login import current_user
 from forum.database.models import Thread, Comment
 from forum.src.api.comment_schema import comments_schema, comment_schema
+from forum.src.utilities.helpers import now
+from forum.src.api.comment_schema import comment_validation_schema
+from marshmallow import ValidationError
 
 
 comments_blueprint = Blueprint("comments", __name__)
@@ -12,6 +15,12 @@ def index(thread_id):
     thread = Thread.query.get_or_404(thread_id)
 
     if request.method == "POST":
+        print(request.json)
+        try:
+            comment_validation_schema.load(request.json)
+        except ValidationError as err:
+            return jsonify(err.messages), 400
+
         comment = Comment(content=request.json["content"], user_id=current_user.id, thread_id=thread.id)
         comment.save()
 
@@ -35,3 +44,10 @@ def show(comment_id):
         comment.delete()
         return jsonify([]), 204
 
+    if request.method == "PATCH":
+        comment.update({
+            "content": request.json["content"],
+            "updated_at": now()
+        })
+
+        return jsonify(comment_schema.dump(comment)), 200
