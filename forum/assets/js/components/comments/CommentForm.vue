@@ -2,7 +2,7 @@
     <div class="my-4 bg-white px-2 py-3">
         <form method="POST" @submit.prevent="handleSubmit" v-if="canComment">
             <div class="d-flex align-items-start">
-                <img src="https://via.placeholder.com/50" class="rounded-circle mr-2"/>
+                <img :src="auth.profilePicture" class="rounded-circle mr-2" width="50"/>
                 <div class="flex-1">
                     <textarea class="form-control" placeholder="Your comment..." v-model="content">
                     </textarea>
@@ -32,7 +32,8 @@
         },
         data() {
             return {
-                content: ""
+                content: "",
+                auth: window.Auth
             }
         },
         methods: {

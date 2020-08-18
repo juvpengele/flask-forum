@@ -33,6 +33,7 @@ from forum.apps.auth.routes import auth_blueprint
 from forum.apps.main.routes import main_blueprint
 from forum.apps.threads.routes import thread_blueprint
 from forum.apps.comments.routes import comments_blueprint
+from forum.apps.settings.routes import settings_blueprint
 
 login_manager = LoginManager(app)
 login_manager.login_view = "auth.login"
@@ -47,6 +48,7 @@ app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
 app.register_blueprint(thread_blueprint, url_prefix="/threads")
 app.register_blueprint(comments_blueprint, url_prefix="/api")
+app.register_blueprint(settings_blueprint, url_prefix="/settings")
 
 # seeders
 from forum.database.seeds.category_seeder import CategorySeeder

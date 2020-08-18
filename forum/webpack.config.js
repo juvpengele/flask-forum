@@ -88,7 +88,7 @@ const config = {
 };
 
 if(dev) {
-    config.push(new BrowserSyncPlugin({
+    config.plugins.push(new BrowserSyncPlugin({
         host: 'localhost',
         port: 3000,
         proxy: 'http://localhost:5000/',

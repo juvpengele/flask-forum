@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from forum import db
-from flask import Markup
+from flask import Markup, url_for
 from . import Base
 
 
@@ -9,6 +9,7 @@ class User(Base, UserMixin):
     name = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
+    avatar = db.Column(db.String(150), default="avatar.png")
     email_verified_at = db.Column(db.DateTime, nullable=True, default=None)
     confirmation_token = db.Column(db.String(200), nullable=True, default=None)
     
@@ -26,5 +27,10 @@ class User(Base, UserMixin):
         return {
             "id": self.id,
             "email": self.email,
-            "name": self.name
+            "name": self.name,
+            "profilePicture": self.profile_picture
         }
+
+    @property
+    def profile_picture(self):
+        return url_for('static', filename="images/avatars/" + self.avatar)

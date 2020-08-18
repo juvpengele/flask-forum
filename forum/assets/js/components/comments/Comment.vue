@@ -1,7 +1,7 @@
 <template>
     <div class="comment my-2">
         <div class="d-flex align-items-center">
-            <img src="https://via.placeholder.com/40" class="rounded-circle mr-2">
+            <img :src="comment.owner.profile_picture" class="rounded-circle mr-2" width="25">
             <h6 class="m-0">
                 {{ comment.owner.name }}
             </h6>
@@ -95,6 +95,6 @@
 
     .comment-content {
         margin-top: .25rem;
-        padding-left: 3rem;
+        padding-left: 2rem;
     }
 </style>
