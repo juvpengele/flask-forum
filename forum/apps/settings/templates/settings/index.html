@@ -1,1 +1,43 @@
-<h1>Settings</h1>
+{% extends "layouts/app.html" %}
+
+{% block content %}
+<div class="mt-2">
+    <h2>Account settings</h2>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-3">
+            {% include "partials/_sidebar.html" %}
+        </div>
+        <div class="col-md-12 col-lg-9  bg-white py-4">
+            <div class="row">
+                <div class="col-10 mx-auto ">
+                    <form action="{{ url_for('settings.index')}}" method="POST">
+                        {{ form.csrf_token }}
+                        <div class="form-group">
+                            <label>{{ form.name.label }}</label>
+                            {{ form.name(class="form-control") }}
+                            {% for error in form.name.errors %}
+                                <small class="text-danger">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <label>{{ form.email.label }}</label>
+                            {{ form.email(class="form-control") }}
+                            {% for error in form.email.errors %}
+                                <small class="text-danger">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-primary")}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
