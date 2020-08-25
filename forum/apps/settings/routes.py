@@ -1,6 +1,11 @@
-from flask import render_template, url_for, redirect, Blueprint, request, flash, redirect
+import os
+from flask import render_template, url_for, redirect, Blueprint, request, flash, redirect, jsonify
 from flask_login import login_required, current_user
 from .form import AccountForm
+from werkzeug.utils import secure_filename
+from forum import app
+from forum.src.utilities.functions import generate_random_str
+
 
 settings_blueprint = Blueprint("settings", __name__, template_folder="templates")
 
@@ -30,3 +35,24 @@ def index():
 def password():
 
     return render_template("settings/password.html")
+
+@login_required
+@settings_blueprint.route('avatar', methods=["POST"])
+def avatar():
+
+    avatar_file = request.files['avatar']
+
+    filename = avatar_file.filename
+    extension = filename.split(".")[-1]
+
+    avatar_name = generate_random_str(20) + '.' + extension
+
+    avatar_file.save(os.path.join(app.config['AVATAR_FOLDER'], avatar_name))
+
+    current_user.update({
+        "avatar": avatar_name
+    })
+
+    return jsonify({
+        "avatar":  current_user.profile_picture
+    })
