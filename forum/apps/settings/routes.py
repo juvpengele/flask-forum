@@ -42,16 +42,13 @@ def avatar():
 
     avatar_file = request.files['avatar']
 
-    filename = avatar_file.filename
-    extension = filename.split(".")[-1]
+    extension = avatar_file.filename.split(".")[-1]
 
     avatar_name = generate_random_str(20) + '.' + extension
 
     avatar_file.save(os.path.join(app.config['AVATAR_FOLDER'], avatar_name))
 
-    current_user.update({
-        "avatar": avatar_name
-    })
+    current_user.update({ "avatar": avatar_name })
 
     return jsonify({
         "avatar":  current_user.profile_picture

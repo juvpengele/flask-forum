@@ -1,6 +1,7 @@
-from flask_seeder import Seeder, generator
-from forum.database.models import Category
+from forum.database.models.category import Category
+from flask_seeder import Seeder
 from slugify import slugify
+
 
 
 category_names = ["PHP", "Javascript", "Python", "HTML-CSS"]

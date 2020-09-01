@@ -11,13 +11,11 @@
         <div class="col-md-12 col-lg-9  bg-white py-4">
             <div class="row">
                 <div class="col-10 mx-auto ">
-                    <form action="{{ url_for('settings.avatar') }}" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="file" name="avatar" id="avatar">
-                        <button type="submit">Update</button>
-                    </form>
-
-
+                    <div class="text-center">
+                        <avatar></avatar>
+                        <avatar-uploader></avatar-uploader>
+                    </div>
+                    
 
                     <form action="{{ url_for('settings.index')}}" method="POST">
                         {{ form.csrf_token }}

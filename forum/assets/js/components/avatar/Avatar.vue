@@ -1,0 +1,35 @@
+<template>
+    
+    <img :src="profilePicture" :alt="auth.name + ' profile picture'" :width="width">
+    
+</template>
+
+<script>
+export default {
+    props: {
+        width: {
+            type: Number,
+            required: false,
+            default: 200
+        }
+    },
+    data() {
+        return {
+            profilePicture: window.Auth.profilePicture
+        }
+    },
+    mounted() {
+        EventDispatcher.listen("avatar-uploaded", this.updateProfilePicture)
+    },
+    methods: {
+        updateProfilePicture(url) {
+            this.profilePicture = url;
+        }
+    },
+    computed: {
+        auth() {
+            return window.Auth
+        }
+    }
+}
+</script>
