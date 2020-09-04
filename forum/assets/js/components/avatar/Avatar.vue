@@ -1,13 +1,18 @@
 <template>
     
-    <img :src="profilePicture" :alt="auth.name + ' profile picture'" :width="width">
+    <img 
+        :src="profilePicture" 
+        :alt="auth.name + ' profile picture'" 
+        :width="width"
+        :height="size"
+    />
     
 </template>
 
 <script>
 export default {
     props: {
-        width: {
+        size: {
             type: Number,
             required: false,
             default: 200

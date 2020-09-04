@@ -36,16 +36,30 @@ def password():
 
     return render_template("settings/password.html")
 
+def _error_response(message, status_code = 422):
+    return jsonify({
+        "errors": {
+            "avatar": message
+        }
+    }), status_code
+
+avatar_extensions = ("png", "jpeg", "jpg", "gif") 
+
 @login_required
 @settings_blueprint.route('avatar', methods=["POST"])
 def avatar():
 
     avatar_file = request.files['avatar']
 
+    if not avatar_file:
+        return _error_response("Please provide an image")
+
     extension = avatar_file.filename.split(".")[-1]
 
-    avatar_name = generate_random_str(20) + '.' + extension
+    if not extension or not extension in avatar_extensions: 
+        return _error_response("Please provide a valid image")
 
+    avatar_name = generate_random_str(20) + '.' + extension.lower()
     avatar_file.save(os.path.join(app.config['AVATAR_FOLDER'], avatar_name))
 
     current_user.update({ "avatar": avatar_name })
