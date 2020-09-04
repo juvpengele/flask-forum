@@ -3,12 +3,14 @@ from flask_login import login_required, current_user
 from slugify import slugify
 from .forms import ThreadCreationForm
 from forum.database.models import Thread, Category
+from forum.src.decorators.email_verified import email_verified
 
 thread_blueprint = Blueprint("threads", __name__, template_folder="templates")
 
 
 @thread_blueprint.route("/create", methods=["GET", "POST"])
 @login_required
+@email_verified
 def create():
     thread_form = ThreadCreationForm()
 
@@ -72,6 +74,7 @@ def show(category_slug, thread_slug):
 
 @thread_blueprint.route("<string:category_slug>/<string:thread_slug>/edit")
 @login_required
+@email_verified
 def edit(category_slug, thread_slug):
 
     category = Category.query.filter_by(slug=category_slug).first_or_404()

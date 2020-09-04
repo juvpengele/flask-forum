@@ -14,6 +14,15 @@
                         position: "bottomRight"
                     });
                 {% endif %}
+
+                {% if category == "warning" %}
+
+                    iziToast.warning({
+                        message: "{{ message }}",
+                        position: "bottomRight",
+                    });
+                {% endif %}
+
             {% endfor %}
         </script>
     {% endif %}

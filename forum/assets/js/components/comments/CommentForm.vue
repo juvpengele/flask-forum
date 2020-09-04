@@ -13,8 +13,7 @@
             </div>
         </form>
         <div v-else>
-            <div class="text-center">
-                To comment, you must <a href="/login">login</a>
+            <div class="text-center" v-html="restrictionMessage">
             </div>
         </div>
     </div>
@@ -47,7 +46,21 @@
         },
         computed: {
             canComment() {
-                return  !! window.Auth;
+                return  !! window.Auth && window.Auth.email_verified;
+            },
+            restrictionMessage() {
+                
+                if(! window.Auth) {
+                    return `
+                        To comment, you must <a href="/login">login</a>
+                    `
+                }
+
+                if(! window.Auth.email_verified){
+                    return `You must validate your email to comment`
+                }
+
+                return ""
             }
         }
     }

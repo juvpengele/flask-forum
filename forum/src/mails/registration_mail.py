@@ -47,3 +47,8 @@ class RegistrationMail:
 
     def _get_confirmation_link(self):
         return Config.APP_HOST + "/register/confirmation/" + self.recipient.confirmation_token
+
+
+def send_validation_email(recipient_email):
+    registration_mail = RegistrationMail(recipient_email)
+    registration_mail.send()

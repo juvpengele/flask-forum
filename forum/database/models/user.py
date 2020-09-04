@@ -28,7 +28,8 @@ class User(Base, UserMixin):
             "id": self.id,
             "email": self.email,
             "name": self.name,
-            "profilePicture": self.profile_picture
+            "profilePicture": self.profile_picture,
+            "email_verified": self.email_verified_at is not None
         }
 
     @property

@@ -3,7 +3,7 @@
     <img 
         :src="profilePicture" 
         :alt="auth.name + ' profile picture'" 
-        :width="width"
+        :width="size"
         :height="size"
     />
     
