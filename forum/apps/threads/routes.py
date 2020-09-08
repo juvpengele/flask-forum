@@ -4,8 +4,11 @@ from slugify import slugify
 from .forms import ThreadCreationForm
 from forum.database.models import Thread, Category
 from forum.src.decorators.email_verified import email_verified
+from sqlalchemy.orm import joinedload
 
 thread_blueprint = Blueprint("threads", __name__, template_folder="templates")
+
+
 
 
 @thread_blueprint.route("/create", methods=["GET", "POST"])
@@ -33,6 +36,23 @@ def create():
         return redirect(url_for("main.index"))
 
     return render_template("threads/create.html", form=thread_form)
+
+
+@thread_blueprint.route("<string:category_slug>")
+def category_threads(category_slug):
+    category = Category.query.filter_by(slug=category_slug).first_or_404()
+
+    page = request.args.get('page', 1, type=int)
+
+    threads = Thread.query\
+                    .filter_by(category_id=category.id)\
+                    .order_by(Thread.created_at.desc())\
+                    .options(joinedload(Thread.category))\
+                    .options(joinedload(Thread.comments))\
+                    .paginate(page, 10, False)
+
+    return render_template('main/index.html', threads=threads)
+
 
 
 @thread_blueprint.route("<string:category_slug>/<string:thread_slug>", methods=["GET", "POST", "DELETE", "PUT"])

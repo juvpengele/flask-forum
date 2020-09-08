@@ -44,6 +44,19 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
+from forum.database.models.category import Category
+
+@app.context_processor
+def inject_categories():
+    categories = []
+    try:
+        categories = Category.query.all()
+    except e:
+        print(e)
+        
+    return dict(app_categories=categories)
+
+
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
 app.register_blueprint(thread_blueprint, url_prefix="/threads")

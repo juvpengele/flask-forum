@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, abort
-from flask_login import current_user
+from flask_login import current_user, login_required
 from forum.database.models import Thread, Comment
 from forum.src.api.comment_schema import comments_schema, comment_schema
 from forum.src.utilities.helpers import now

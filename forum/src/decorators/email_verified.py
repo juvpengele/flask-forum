@@ -10,7 +10,6 @@ def email_verified(f):
             if request.is_xhr:
                 return jsonify({
                     "errors": "You must validate your email"
-                
                 }), 403
 
             flash("You must validate your email", "warning")

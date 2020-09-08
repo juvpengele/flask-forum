@@ -19,7 +19,7 @@
         <div class="my-4">
 
             {% for thread in threads.items %}
-                <div class="question  p-3 bg-white mb-4 shadow-sm">
+                <div class="question  p-4 bg-white mb-4 shadow-sm">
                     <div class="question-header">
                         <a href="{{ url_for("threads.show", category_slug=thread.category.slug, thread_slug=thread.slug) }}"
                            class="question-title">
@@ -65,6 +65,13 @@
                     </div>
                 </div>
             {% endfor %}
+
+            {% if threads.items | length == 0  %}
+                <div class="p-4 text-center">
+                    <h3 class="">There are not questions yet asked... </h3>
+                    <img src="{{ url_for("static", filename="images/checklist.svg") }}" width="200"/>
+                </div>
+            {% endif %}
 
             {% if threads.pages > 1 %}
             <div class="my-2">

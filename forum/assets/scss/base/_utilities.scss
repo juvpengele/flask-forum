@@ -1,3 +1,11 @@
 .text-black {
     color: black;
 }
+
+.no-underline {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
