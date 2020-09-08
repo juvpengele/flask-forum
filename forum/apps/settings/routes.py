@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from forum import app
 from forum.src.utilities.functions import generate_random_str
 from forum.src.decorators.email_verified import email_verified
+from forum.src.mails.registration_mail import send_validation_email
 
 
 settings_blueprint = Blueprint("settings", __name__, template_folder="templates")
@@ -22,13 +23,16 @@ def index():
         current_user.update({
             "name": account_form.name.data,
             "email": account_form.email.data,
-            "email_verified_at": None if email_changed else current_user.email_verified_at
+            "email_verified_at": None if email_changed else current_user.email_verified_at,
+            "confirmation_token": generate_random_str(40) if email_changed else None
         })
 
         flash("Votre compte a été mis à jour avec succès", "success")
         
         if email_changed:
             flash("Your account has been disabled, you must validate your email", "warning")
+
+            send_validation_email(current_user)
 
         return redirect(url_for("settings.index"))
 
