@@ -1,12 +1,13 @@
 import os
 from flask import render_template, url_for, redirect, Blueprint, request, flash, redirect, jsonify
 from flask_login import login_required, current_user
-from .form import AccountForm
+from .form import AccountForm, ChangePasswordForm
 from werkzeug.utils import secure_filename
 from forum import app
 from forum.src.utilities.functions import generate_random_str
 from forum.src.decorators.email_verified import email_verified
 from forum.src.mails.registration_mail import send_validation_email
+from forum import bcrypt
 
 
 settings_blueprint = Blueprint("settings", __name__, template_folder="templates")
@@ -46,7 +47,19 @@ def index():
 @settings_blueprint.route('/password', methods=["GET", "POST"])
 def password():
 
-    return render_template("settings/password.html")
+    password_form = ChangePasswordForm()
+
+    if password_form.validate_on_submit():
+        current_user.update({
+            "password": bcrypt.generate_password_hash(password_form.new_password.data)
+        })
+
+        flash("Your password has been changed successfully", "success")
+
+        return redirect(url_for("settings.password"))
+
+    return render_template("settings/password.html", form=password_form)
+
 
 def _error_response(message, status_code = 422):
     return jsonify({
@@ -79,3 +92,4 @@ def avatar():
     return jsonify({
         "avatar":  current_user.profile_picture
     })
+
