@@ -22,6 +22,8 @@ class Base(db.Model):
         db.session.commit()
 
 
+
+
 from .user import User
 from .category import Category
 from .thread import Thread

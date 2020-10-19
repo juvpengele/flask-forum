@@ -35,6 +35,8 @@ from forum.apps.threads.routes import thread_blueprint
 from forum.apps.comments.routes import comments_blueprint
 from forum.apps.settings.routes import settings_blueprint
 
+from forum.src.utilities.helpers import cached_categories
+
 login_manager = LoginManager(app)
 login_manager.login_view = "auth.login"
 
@@ -50,7 +52,7 @@ from forum.database.models.category import Category
 def inject_categories():
     categories = []
     try:
-        categories = Category.query.all()
+        categories = cached_categories()
     except e:
         print(e)
         
