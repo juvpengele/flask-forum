@@ -1,13 +1,17 @@
-from werkzeug.contrib.cache import SimpleCache
+import os
 import json
+from werkzeug.contrib.cache import FileSystemCache
+
 
 class Cache:
     def __init__(self):
-        self.cache = SimpleCache()
+        cache_directory = os.path.join(os.getcwd(), 'forum', 'src', 'storage', 'cache')
+        self.cache = FileSystemCache(cache_directory, default_timeout=10*60)
 
-    def set(self, key, value):
+    def set(self, key, value, timeout=None):
+       
         try:
-            self.cache.set(key, json.dumps(value))
+            return self.cache.set(key, json.dumps(value), timeout=timeout)
 
         except Exception as exception:
             print("An error occured")
@@ -17,8 +21,6 @@ class Cache:
         try:
             data = self.cache.get(key)
 
-            print(data)
-
             if data:
                 return json.loads(data)
 
@@ -27,4 +29,4 @@ class Cache:
 
 
     def has(self, key):
-        return self.cache.get(key) is not None
+        return self.cache.has(key) is not None

@@ -15,7 +15,7 @@ def cached_categories():
             map(lambda category: category.to_json(), Category.query.all())
         )
 
-        cache.set("categories", categories)
+        cache.set("categories", categories, timeout=5*60)
 
     return categories
 
