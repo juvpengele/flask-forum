@@ -23,12 +23,21 @@
                 </div>
                 <div class="col-sm-12 col-lg-6">
                     <div class="d-flex justify-content-end">
+                        
                         <select class="selectpicker" id="primary-filter">
-                            <option value="recent">
-                                <a href="{{ url_for('main.index') }}">Most recent</a>
+                            <option value="recent"
+                                {% if primary_filter == 'recent'%}
+                                    selected
+                                {% endif %}
+                            >
+                                Most recent
                             </option>
-                            <option value="popular">
-                                <a href="{{ url_for('main.index') }}?popular">Most popular</a>
+                            <option value="popular"
+                                {% if primary_filter == 'popular'%}
+                                    selected
+                                {% endif %}
+                            >
+                                Most popular
                             </option>
                         </select>
                     </div>

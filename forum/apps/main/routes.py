@@ -8,6 +8,7 @@ main_blueprint = Blueprint('main', __name__)
 @main_blueprint.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
+    primary_filter = 'recent' if request.args.get('popular') is None else 'popular'
 
     threads = Thread.query\
                     .order_by(Thread.created_at.desc())\
@@ -15,7 +16,7 @@ def index():
                     .options(joinedload(Thread.comments))\
                     .paginate(page, 10, False)
 
-    return render_template('main/index.html', threads=threads)
+    return render_template('main/index.html', threads=threads, primary_filter=primary_filter)
 
 
 @main_blueprint.route('/about-us')
