@@ -4,6 +4,8 @@ from forum import db
 class Base(db.Model):
     __abstract__ = True
 
+    json_attributes = ()
+
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
@@ -20,6 +22,9 @@ class Base(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def to_json(self):
+        pass
 
 
 

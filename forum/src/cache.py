@@ -5,7 +5,7 @@ from werkzeug.contrib.cache import FileSystemCache
 
 class Cache:
     def __init__(self):
-        self.cache = FileSystemCache(Cache.cache_dir(), default_timeout=10*60)
+        self._cache = FileSystemCache(Cache.cache_dir(), default_timeout=10*60)
 
     @staticmethod
     def cache_dir():
@@ -13,7 +13,7 @@ class Cache:
 
     def set(self, key, value, timeout=None):
         try:
-            return self.cache.set(key, json.dumps(value), timeout=timeout)
+            return self._cache.set(key, json.dumps(value), timeout=timeout)
 
         except Exception as exception:
             print(exception)
@@ -21,7 +21,7 @@ class Cache:
 
     def get(self, key):
         try:
-            data = self.cache.get(key)
+            data = self._cache.get(key)
             if data:
                 return json.loads(data)
 
@@ -30,4 +30,4 @@ class Cache:
 
 
     def has(self, key):
-        return self.cache.has(key) is not None
+        return self._cache.has(key) is not None
