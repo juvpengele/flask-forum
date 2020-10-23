@@ -10,9 +10,13 @@ def index():
     page = request.args.get('page', 1, type=int)
     primary_filter = 'recent' if request.args.get('popular') is None else 'popular'
 
-    threads = Thread.query\
-                    .order_by(Thread.created_at.desc())\
-                    .options(joinedload(Thread.category))\
+    threads = Thread.query
+                    .order_by(Thread.created_at.desc())
+
+    if primary_filter == 'popular':
+        threads = threads.order_by(Thread.views_count.desc())
+
+    threads = threads.options(joinedload(Thread.category))\
                     .options(joinedload(Thread.comments))\
                     .paginate(page, 10, False)
 
