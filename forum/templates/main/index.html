@@ -17,6 +17,23 @@
     </div>
     <div class="container">
         <div class="my-4">
+            <div class="row py-4">
+                <div class="col-sm-12 col-lg-6">
+
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="d-flex justify-content-end">
+                        <select class="selectpicker" id="primary-filter">
+                            <option value="recent">
+                                <a href="{{ url_for('main.index') }}">Most recent</a>
+                            </option>
+                            <option value="popular">
+                                <a href="{{ url_for('main.index') }}?popular">Most popular</a>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
             {% for thread in threads.items %}
                 <div class="question  p-4 bg-white mb-4 shadow-sm">

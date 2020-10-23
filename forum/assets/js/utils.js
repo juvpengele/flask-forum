@@ -37,3 +37,4 @@ if(deleteForm) {
         });
     });
 }
+

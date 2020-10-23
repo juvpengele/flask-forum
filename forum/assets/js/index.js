@@ -1,4 +1,6 @@
 require("../scss/app.scss");
+require('bootstrap-select');
+
 import Vue from "vue";
 
 
@@ -24,4 +26,21 @@ window.EventDispatcher = new class {
 
 const app = new Vue({
     el: "#root",
+});
+
+
+$(document).ready(function() {
+    $('.select').selectpicker();
+    $("#primary-filter").on("changed.bs.select",  function (event) {
+        let url = window.location.origin + "/";
+
+        if(event.target.value === "popular") {
+            url = url + "?popular"
+        }
+
+        if(window.location.href !== url) {
+            window.location.href = url;
+        }
+        
+    })
 });
