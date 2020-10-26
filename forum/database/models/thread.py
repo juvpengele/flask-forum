@@ -13,6 +13,7 @@ class Thread(Base):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     views_count = db.Column(db.Integer, nullable=False, default=0)
+    best_comment_id = db.Column(db.Integer, nullable=True)
 
     owner = db.relationship("User", back_populates="threads")
     category = db.relationship("Category", back_populates="threads")

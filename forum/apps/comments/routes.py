@@ -9,6 +9,7 @@ from marshmallow import ValidationError
 
 comments_blueprint = Blueprint("comments", __name__)
 
+
 @login_required
 @comments_blueprint.route('/threads/<int:thread_id>/comments', methods=["GET", "POST"])
 def index(thread_id):
