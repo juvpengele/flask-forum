@@ -23,7 +23,30 @@
                 </div>
                 <div class="col-sm-12 col-lg-6">
                     <div class="d-flex justify-content-end">
-                        
+                        <select class="selectpicker" id="secondary_filter">
+                            <option value="recent"
+                                {% if secondary_filter == 'recent'%}
+                                selected
+                                {% endif %}
+                            >
+                                All
+                            </option>
+
+                            <option value="recent"
+                                {% if primary_filter == 'recent'%}
+                                selected
+                                {% endif %}
+                            >
+                                Answered
+                            </option>
+                            <option value="popular"
+                                    {% if primary_filter == 'popular'%}
+                                    selected
+                                    {% endif %}
+                            >
+                                Unanswered
+                            </option>
+                        </select>
                         <select class="selectpicker" id="primary-filter">
                             <option value="recent"
                                 {% if primary_filter == 'recent'%}

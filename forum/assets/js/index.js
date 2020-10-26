@@ -35,12 +35,11 @@ $(document).ready(function() {
         let url = window.location.origin + "/";
 
         if(event.target.value === "popular") {
-            url = url + "?popular"
+            url = url + "?popular=true"
         }
 
         if(window.location.href !== url) {
             window.location.href = url;
         }
-        
     })
 });

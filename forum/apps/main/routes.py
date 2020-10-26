@@ -15,13 +15,23 @@ def index():
     if primary_filter == 'popular':
         threads = threads.order_by(Thread.views_count.desc())
     else:
-        threads = Thread.order_by(Thread.created_at.desc())
+        threads = threads.order_by(Thread.created_at.desc())
+
+    secondary_filter = 'all' if request.args.get('filter') is None else request.args.get('filter')
+    if secondary_filter is not None:
+        if secondary_filter == 'answered':
+            threads = threads.filter(Thread.comments_count > 0)
+
+        if secondary_filter == 'unanswered':
+            threads = threads.filter(Thread.comments_count == 0)
+
+
 
     threads = threads.options(joinedload(Thread.category))\
                     .options(joinedload(Thread.comments))\
                     .paginate(page, 10, False)
 
-    return render_template('main/index.html', threads=threads, primary_filter=primary_filter)
+    return render_template('main/index.html', threads=threads, primary_filter=primary_filter, secondary_filter=secondary_filter)
 
 
 @main_blueprint.route('/about-us')

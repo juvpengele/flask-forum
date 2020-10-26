@@ -13,6 +13,7 @@ class Thread(Base):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     views_count = db.Column(db.Integer, nullable=False, default=0)
+    comments_count = db.Column(db.Integer, default=0)
     best_comment_id = db.Column(db.Integer, nullable=True)
 
     owner = db.relationship("User", back_populates="threads")
@@ -33,5 +34,5 @@ class Thread(Base):
         return comment
 
     @hybrid_property
-    def comments_count(self):
-        return len(self.comments)
+    def has_comments(self):
+        return self.comments_count > 0
