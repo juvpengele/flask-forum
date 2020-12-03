@@ -25,13 +25,16 @@ def index():
         if secondary_filter == 'unanswered':
             threads = threads.filter(Thread.comments_count == 0)
 
-
-
     threads = threads.options(joinedload(Thread.category))\
                     .options(joinedload(Thread.comments))\
                     .paginate(page, 10, False)
 
-    return render_template('main/index.html', threads=threads, primary_filter=primary_filter, secondary_filter=secondary_filter)
+    print(secondary_filter)
+    return render_template('main/index.html',
+                           threads=threads,
+                           primary_filter=primary_filter,
+                           secondary_filter=secondary_filter
+                           )
 
 
 @main_blueprint.route('/about-us')
