@@ -24,7 +24,12 @@ class Base(db.Model):
         db.session.commit()
 
     def to_json(self):
-        pass
+        attributes = {}
+
+        for key in self.json_attributes:
+            attributes[key] = getattr(self, key)
+
+        return attributes
 
     def increment(self, column):
         column_value = getattr(self, column, 0)

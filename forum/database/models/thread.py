@@ -6,6 +6,9 @@ from .comment import Comment
 
 
 class Thread(Base):
+
+    json_attributes = ("id", "title", "slug", "content", "user_id", "category_id", "comments_count")
+
     __tablename__ = "threads"
     title = db.Column(db.String(100), nullable=False)
     slug = db.Column(db.String(250), nullable=False)
