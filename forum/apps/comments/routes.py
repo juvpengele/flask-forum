@@ -24,6 +24,8 @@ def index(thread_id):
         comment = Comment(content=request.json["content"], user_id=current_user.id, thread_id=thread.id)
         comment.save()
 
+        thread.increment("comments_count")
+
         return jsonify(comment_schema.dump(comment)), 201
 
     else:

@@ -26,6 +26,9 @@ class Base(db.Model):
     def to_json(self):
         pass
 
+    def increment(self, column):
+        column_value = getattr(self, column, 0)
+        self.update({column: column_value + 1})
 
 
 

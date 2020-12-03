@@ -87,4 +87,4 @@ $(document).ready(function() {
 
     primaryFilter.on("changed.bs.select",  _redirect);
     secondaryFilter.on("changed.bs.select", _redirect);
-})
+});

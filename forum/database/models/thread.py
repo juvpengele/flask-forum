@@ -36,3 +36,4 @@ class Thread(Base):
     @hybrid_property
     def has_comments(self):
         return self.comments_count > 0
+
