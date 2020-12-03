@@ -23,40 +23,40 @@
                 </div>
                 <div class="col-sm-12 col-lg-6">
                     <div class="d-flex justify-content-end">
-                        <select class="selectpicker" id="secondary_filter">
-                            <option value="recent"
-                                {% if secondary_filter == 'recent'%}
+                        <select class="selectpicker" id="secondary-filter">
+                            <option value="all"
+                                {% if secondary_filter == None %}
                                 selected
                                 {% endif %}
                             >
                                 All
                             </option>
 
-                            <option value="recent"
-                                {% if primary_filter == 'recent'%}
+                            <option value="answered"
+                                {% if secondary_filter == "answered"%}
                                 selected
                                 {% endif %}
                             >
                                 Answered
                             </option>
-                            <option value="popular"
-                                    {% if primary_filter == 'popular'%}
-                                    selected
-                                    {% endif %}
+                            <option value="unanswered"
+                                {% if secondary_filter == "unanswered"%}
+                                selected
+                                {% endif %}
                             >
                                 Unanswered
                             </option>
                         </select>
                         <select class="selectpicker" id="primary-filter">
                             <option value="recent"
-                                {% if primary_filter == 'recent'%}
+                                {% if primary_filter == "recent" %}
                                     selected
                                 {% endif %}
                             >
                                 Most recent
                             </option>
                             <option value="popular"
-                                {% if primary_filter == 'popular'%}
+                                {% if primary_filter == "popular" %}
                                     selected
                                 {% endif %}
                             >

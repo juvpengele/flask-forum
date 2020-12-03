@@ -31,15 +31,60 @@ const app = new Vue({
 
 $(document).ready(function() {
     $('.select').selectpicker();
-    $("#primary-filter").on("changed.bs.select",  function (event) {
-        let url = window.location.origin + "/";
+    const primaryFilter = $("#primary-filter");
+    const secondaryFilter = $("#secondary-filter");
 
-        if(event.target.value === "popular") {
-            url = url + "?popular=true"
+    function _primaryFilterValue(primaryFilterValue) {
+        if(primaryFilterValue === "recent") {
+            return null
         }
+
+        return `${primaryFilterValue}=true`;
+    }
+
+    function _secondaryFilterValue(secondaryFilterValue) {
+        if(secondaryFilterValue === "all") {
+            return null;
+        }
+
+        return `filter=${secondaryFilterValue}`;
+    }
+
+    function filterLink() {
+        let url = window.location.origin + "/";
+        let queryParams;
+
+        let primaryFilterValue = _primaryFilterValue(primaryFilter.val());
+        let secondaryFilterValue = _secondaryFilterValue(secondaryFilter.val());
+
+        if(primaryFilterValue === null || secondaryFilterValue === null) {
+            if(primaryFilterValue !== null) {
+                queryParams = primaryFilterValue;
+            }
+
+            if(secondaryFilterValue !== null) {
+                queryParams = secondaryFilterValue;
+            }
+        } else {
+            queryParams = `${primaryFilterValue}&${secondaryFilterValue}`;
+        }
+
+
+        if(queryParams) {
+            return url + "?" + queryParams;
+        }
+
+        return url;
+    }
+
+    function _redirect() {
+        const url = filterLink();
 
         if(window.location.href !== url) {
             window.location.href = url;
         }
-    })
+    }
+
+    primaryFilter.on("changed.bs.select",  _redirect);
+    secondaryFilter.on("changed.bs.select", _redirect);
 });
